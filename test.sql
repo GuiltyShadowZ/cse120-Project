@@ -360,27 +360,6 @@ UNLOCK TABLES;
 --
 -- Table structure for table `users`
 --
-DROP TABLE IF EXISTS `messages`;
-
-CREATE TABLE `messages` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `body` varchar(999) NOT NULL,
-  `Sender_ID` int NOT NULL,
-  `Recipient_ID` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  FOREIGN KEY (`Sender_ID`) REFERENCES `users` (`ID`),
-  FOREIGN KEY (`Recipient_ID`) REFERENCES `users` (`ID`)
-);
-
-LOCK TABLES `messages` WRITE;
-
-INSERT INTO `messages` (`body`, `Sender_ID`, `Recipient_ID`) VALUES
-('Hello there!', 1, 2),
-('Hi, how are you doing?', 2, 1);
-
-UNLOCK TABLES;
-
-
 
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -421,3 +400,37 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-02-23 18:48:19
+
+-- Table structure for messages sent by `users`
+DROP TABLE IF EXISTS `message_senders`;
+
+CREATE TABLE `message_senders` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `body` varchar(999) NOT NULL,
+  `Sender_ID` int NOT NULL,
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`Sender_ID`) REFERENCES `users` (`ID`)
+);
+
+LOCK TABLES `message_senders` WRITE;
+
+-- Dummy Data
+INSERT INTO `message_senders` (`body`, `Sender_ID`) VALUES
+('Group Chat Message!', 1); -- Message sent by user 1
+
+UNLOCK TABLES;
+
+-- Table structure for mapping messages to their recipients
+DROP TABLE IF EXISTS `message_recipients`;
+
+CREATE TABLE `message_recipients` (
+  `Message_ID` int NOT NULL,
+  `Recipient_ID` int NOT NULL,
+  PRIMARY KEY (`Message_ID`, `Recipient_ID`),
+  FOREIGN KEY (`Message_ID`) REFERENCES `message_senders` (`ID`),
+  FOREIGN KEY (`Recipient_ID`) REFERENCES `users` (`ID`)
+);
+-- Dummy Data
+INSERT INTO `message_recipients` (`Message_ID`, `Recipient_ID`) VALUES
+(1, 2), -- Message 1 sent to user 2
+(1, 3);
