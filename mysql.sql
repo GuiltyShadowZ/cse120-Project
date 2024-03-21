@@ -249,12 +249,12 @@ VALUES
 
 INSERT INTO Bootcamps (Name, Deadline, Field, Certification, Duration, Pricing, chedule, Details, Location, URL)
 VALUES
-  ('Data Science Bootcamp', '2024-07-15', 'Data Science', 'Certificate of Completion', '12 weeks', '$5,000', 'Full-time', 'Intensive bootcamp covering data analysis, machine learning, and data visualization techniques.', 'San Francisco', 'https://example.com/bootcamp1'),
-  ('Web Development Bootcamp', '2024-06-30', 'Web Development', 'Certificate', '16 weeks', '$6,500', 'Part-time', 'Become proficient in front-end and back-end web development through our comprehensive bootcamp.', 'New York', 'https://example.com/bootcamp2');
+  ('2024 Engineering Leadership Development Program', '2024-07-15', 'Data Science', 'Certificate of Completion', '12 weeks', '$5,000', 'Full-time', 'Intensive bootcamp covering data analysis, machine learning, and data visualization techniques.', 'San Francisco', 'https://www.linkedin.com/jobs/search/?currentJobId=3840679208&keywords=bootcamp&origin=BLENDED_SEARCH_RESULT_NAVIGATION_JOB_CARD&originToLandingJobPostings=3834261145%2C3836751588%2C3836750264'),
+  ('Summer Students (May through August 2024)', '2024-06-30', 'Web Development', 'Certificate', '16 weeks', '$6,500', 'Part-time', 'Become proficient in front-end and back-end web development through our comprehensive bootcamp.', 'New York', 'https://www.linkedin.com/jobs/search/?currentJobId=3818096412&keywords=bootcamp&origin=BLENDED_SEARCH_RESULT_NAVIGATION_JOB_CARD&originToLandingJobPostings=3834261145%2C3836751588%2C3836750264');
 
 INSERT INTO Internships_Jobs (Name, Deadline, Wage, Benefits, Job_Field, Job_Type, Schedule, Location, Details, Ed_Level, URL)
 VALUES
-  ('Software Engineer Internship', '2024-05-31', '$25/hour', 'Flexible work hours, mentorship program', 'Software Engineering', 'Internship', 'Full-time', 'Remote', 'Gain real-world experience in developing software applications under the guidance of senior developers.', 'Bachelor', 'https://example.com/internship1'),
+  ('Engineering Summer Internship', '2024-05-31', '$25/hour', 'Flexible work hours, mentorship program', 'Software Engineering', 'Internship', 'Full-time', 'Remote', 'Gain real-world experience in developing software applications under the guidance of senior developers.', 'Bachelor', 'https://www.linkedin.com/jobs/search/?currentJobId=3825291979&geoId=103644278&keywords=internship&location=United%20States&origin=JOB_SEARCH_PAGE_SEARCH_BUTTON&refresh=true'),
   ('Marketing Specialist Job', '2024-06-15', '$30/hour', 'Health insurance, retirement plan', 'Marketing', 'Full-time', 'Full-time', 'Chicago', 'Execute marketing campaigns and strategies to promote our products and services.', 'Bachelor', 'https://example.com/job1');
 
 
