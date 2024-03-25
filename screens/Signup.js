@@ -1,9 +1,22 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, Image, StyleSheet, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; // Import KeyboardAwareScrollView
 import { StatusBar } from 'expo-status-bar';
+import { IconButton } from 'react-native-paper';
 import Animated, { useSharedValue, withTiming, useAnimatedStyle } from 'react-native-reanimated';
 
+import FormButton from '../components/formButton';
+import FormInput from '../components/formInput';
+import Loading from '../components/loading';
+import { AuthContext } from '../context/authProvider';
+
+
 export default function SignupScreen({ navigation }) {
+    const [displayName, setDisplayName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const { register, loading } = useContext(AuthContext);
+
     const fadeInLogoValue = useSharedValue(0);
     const fadeInSignupFormValue = useSharedValue(0);
 
@@ -31,31 +44,63 @@ export default function SignupScreen({ navigation }) {
         };
     });
 
+    if (loading) {
+        return <Loading />;
+    }
+
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <KeyboardAwareScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={styles.container}
+            resetScrollToCoords={{ x: 0, y: 0 }}
+            scrollEnabled={true}
+            keyboardShouldPersistTaps='handled' // This helps with tapping through inputs
+            enableOnAndroid={true} // Specific prop for better handling on Android devices
+            enableAutomaticScroll={Platform.OS === 'ios'} // Automatically scroll on iOS
+        >
             <View style={styles.container}>
                 <StatusBar style="light" />
-                <Image style={styles.backgroundImage} source={require('../assets/images/BackgroundE.png')} />
+                <Image style={styles.backgroundImage} source={require('../assets/images/BackgroundD.png')} />
                 <Animated.View style={[styles.logoContainer, fadeInLogoStyle]}>
                     <Image style={styles.logo} source={require('../assets/images/Connectado.png')} />
                 </Animated.View>
                 <Animated.View style={[styles.signupForm, fadeInSignupFormStyle]}>
-                    <Text style={styles.signupText}>Sign Up</Text>
-                    <TextInput style={[styles.input, { color: 'white' }]} placeholder="Username" placeholderTextColor="white" />
-                    <TextInput style={[styles.input, { color: 'white' }]} placeholder="Email" placeholderTextColor="white" secureTextEntry />
-                    <TextInput style={[styles.input, { color: 'white' }]} placeholder="Password" placeholderTextColor="white" secureTextEntry />
-                    <TouchableOpacity onPress={() => navigation.navigate('BottomTabNavigation')} style={styles.button}>
-                        <Text style={styles.buttonText}>Sign Up</Text>
-                    </TouchableOpacity>
-                    <View style={styles.loginTextContainer}>
-                        <Text style={styles.loginText}>Have an account?</Text>
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <Text style={styles.loginLink}>Login</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Text style={styles.signupText}></Text>
+                    <FormInput
+                        labelName='Username'
+                        value={displayName}
+                        autoCapitalize='none'
+                        onChangeText={(userDisplayName) => setDisplayName(userDisplayName)}
+                    />   
+                    <FormInput
+                        labelName='Email'
+                        value={email}
+                        autoCapitalize='none'
+                        onChangeText={(userEmail) => setEmail(userEmail)}
+                    />
+                    <FormInput
+                        labelName='Password'
+                        value={password}
+                        secureTextEntry={true}
+                        onChangeText={(userPassword) => setPassword(userPassword)}
+                    />  
+                    <FormButton
+                        title='Sign Up'
+                        modeValue='contained'
+                        labelStyle={styles.loginButtonLabel}
+                        buttonColor='#00BFFF'
+                        onPress={() => register(displayName, email, password)}
+                    />  
+                    <IconButton
+                        icon='keyboard-backspace'
+                        size={30}
+                        style={styles.navButton}
+                        iconColor='white'
+                        onPress={() => navigation.goBack()}
+                    />
                 </Animated.View>
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     );
 }
 
@@ -90,40 +135,7 @@ const styles = StyleSheet.create({
         fontSize: 0,
         marginBottom: 350,
     },
-    input: {
-        width: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-        borderRadius: 10,
-        padding: 15,
-        marginBottom: 20,
-        color: 'black',
-    },
-    button: {
-        width: '100%',
-        backgroundColor: '#00BFFF',
-        borderRadius: 10,
-        padding: 15,
-        alignItems: 'center',
-        marginBottom: 20,
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: 'bold',
+    loginButtonLabel: {
         fontSize: 18,
-    },
-    loginTextContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    loginText: {
-        color: 'white',
-        fontSize: 13,
-        
-    },
-    loginLink: {
-        color: '#323d7b',
-        marginLeft: 5,
-        fontSize: 13,
     },
 });
