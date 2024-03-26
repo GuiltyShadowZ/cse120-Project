@@ -11,8 +11,7 @@ import {
   Network,
   MoreP,
 } from '../screens'
-// import BottomTabNavigation from './navigation/BottomTabNavigation'
-// import LoginScreen from '../screens/Login';
+import BottomTabNavigation from '../navigation/BottomTabNavigation'
 
 const Stack = createStackNavigator();
 

@@ -4,20 +4,22 @@ import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
 export default function Loading() {
   return (
     <View style={styles.loadingContainer}>
-      <ActivityIndicator size='large' color='black' />
-      <Text style={styles.indicatorText}>Sponsored by Firebase (not really)</Text>
+      <ActivityIndicator size='large' color='white' />
+      <Text style={styles.indicatorText}>Sponsored by Firebase (not actually)</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   loadingContainer: {
+    backgroundColor: '#323d7b',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
   },
   indicatorText: {
-    fontSize: 18,
-    marginTop: 12,
+    fontSize: 16,
+    marginTop: 14,
+    color: 'white',
   },
 });

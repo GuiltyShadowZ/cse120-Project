@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, View, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; // Import KeyboardAwareScrollView
 import { Text, Image } from 'react-native';
@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import Animated, { useSharedValue, withTiming, useAnimatedStyle } from 'react-native-reanimated';
 import FormButton from '../components/formButton.js';
 import FormInput from '../components/formInput.js';
+import Loading from '../components/loading.js';
+import { AuthContext } from '../context/authProvider.js';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -13,9 +15,7 @@ export default function LoginScreen({ navigation }) {
   const fadeInLogoValue = useSharedValue(0);
   const fadeInLoginFormValue = useSharedValue(0);
 
-  const handleSignUpPress = () => {
-      navigation.navigate('Signup'); 
-  };
+  const { login, loading } = useContext(AuthContext);
 
   React.useEffect(() => {
       setTimeout(() => {
@@ -38,6 +38,10 @@ export default function LoginScreen({ navigation }) {
           opacity: fadeInLoginFormValue.value,
       };
   });
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <KeyboardAwareScrollView
@@ -76,7 +80,9 @@ export default function LoginScreen({ navigation }) {
             labelStyle={styles.loginButtonLabel}
             buttonColor='#00BFFF'
             textColor='white'
-            onPress={() => navigation.navigate('BottomTabNavigation')}
+            onPress={() => {
+              login(email, password);
+            }}
           />
           <FormButton
             title='Sign up here'

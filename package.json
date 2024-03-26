@@ -13,6 +13,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@chatkitty/core": "^1.8.0",
     "@react-native-async-storage/async-storage": "1.21.0",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.5.7",
